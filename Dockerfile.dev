@@ -1,11 +1,11 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /docker-app
 
-COPY package.json /app
+COPY package.json /docker-app
 
 RUN yarn install
 
-COPY . /app
+COPY . /docker-app
 
 CMD ["yarn", "run", "start"]
