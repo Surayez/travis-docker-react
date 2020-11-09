@@ -1,0 +1,16 @@
+language: generic
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t surayezdev01/travis-docker-react-01 -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true surayezdev01/travis-docker-react-01 npm run test
+
+after_success:
+  - docker build -t surayezdev01/travis-docker-react-01 .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push surayezdev01/travis-docker-react-01
